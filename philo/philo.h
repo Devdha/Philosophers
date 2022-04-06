@@ -30,7 +30,7 @@ typedef struct	s_philo
 	pthread_mutex_t	m_eat;
 }				t_philo;
 
-typedef	struct	s_root
+typedef struct	s_root
 {
 	time_t	start;
 	int		num_of_philo;
@@ -39,8 +39,7 @@ typedef	struct	s_root
 	time_t	time_to_sleep;
 	int		limit_to_eat;
 	t_philo	*philos;
-};
-
+}				t_root;
 
 // util
 void	ft_putstr_fd(char *s, int fd);
