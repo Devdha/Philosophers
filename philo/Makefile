@@ -6,7 +6,7 @@
 #    By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 17:56:16 by hyujo             #+#    #+#              #
-#    Updated: 2022/04/05 22:42:12 by dha              ###   ########seoul.kr   #
+#    Updated: 2022/04/12 11:38:32 by dha              ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,10 @@ NAME = philo
 
 SRCS = main.c \
 		error.c \
-		util.c
+		util.c \
+		input.c \
+		init.c \
+		dining.c
 INCS = philo.h
 OBJ_DIR = ./obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

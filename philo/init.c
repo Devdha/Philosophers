@@ -1,44 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 21:11:51 by dha               #+#    #+#             */
-/*   Updated: 2022/04/12 11:56:46 by dha              ###   ########seoul.kr  */
+/*   Created: 2022/04/11 16:24:02 by dha               #+#    #+#             */
+/*   Updated: 2022/04/11 17:39:33 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	start(t_root *root)
+int	init_table(t_root *root)
 {
-	int			i;
-	pthread_t	thread;
+	int	i;
 
+	if (ft_malloc(root->philos, root->num_of_philo * sizeof(t_philo)))
+		return (1);
+	if (ft_malloc(root->forks, root->num_of_philo * sizeof(pthread_mutex_t)))
+		return (1);
 	i = 0;
-	root->start = get_cur_time();
 	while (i < root->num_of_philo)
 	{
-		root->philos[i].last = root->start;
-		pthread_create(&root->philos[i].thread, NULL,
-			dining, &root->philos[i]);
+		root->philos[i].id = i + 1;
+		pthread_mutex_init(&root->forks[i], NULL);
+		pthread_mutex_init(&root->philos[i].mutex, NULL);
+		root->philos[i].lfork = &root->forks[i];
+		root->philos[i].rfork = &root->forks[i + 1 % root->num_of_philo];
+		root->philos[i].root = root;
+		i++;
 	}
-}
-
-int	main(int argc, char **argv)
-{
-	t_root	root;
-
-	if (set_args(&root, argc, argv))
-		return (1);
-	if (init_table(&root))
-		return (1);
-	// 초기화
-	start(&root);
-	// 수행
-	// 뮤텍스 날리고
-	// 남은 거 프리 해주면 끝
 	return (0);
 }
