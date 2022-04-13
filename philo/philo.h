@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/13 15:46:49 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 22:00:56 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+
+# define SUCCESS 0
+# define ERROR 1
 
 typedef struct s_philo
 {
@@ -59,6 +62,7 @@ int		ft_atoi(const char *str);
 int		ft_malloc(void **ptr, size_t size);
 time_t	get_cur_time(void);
 void	print_ms(long ms, int id, char *msg);
+void	wait_action(time_t begin, time_t limit);
 // error
 int		err_argnum(void);
 int		err_invalid_input(void);

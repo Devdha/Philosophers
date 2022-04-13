@@ -6,29 +6,21 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:41:25 by dha               #+#    #+#             */
-/*   Updated: 2022/04/13 16:07:28 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 21:34:10 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_putnbr_fd(long n, int fd)
+void	wait_action(time_t begin, time_t limit)
 {
-	char	c;
+	time_t	cur;
 
-	if (n == 0)
-		return ;
-	ft_putnbr_fd(n / 10, fd);
-	c = n % 10 + '0';
-	write(fd, &c, 1);
-}
-
-void	print_ms(long ms, int id, char *msg)
-{
-	ft_putnbr_fd(ms, 1);
-	write(1, " ", 1);
-	ft_putnbr_fd(id, 1);
-	write(1, " ", 1);
-	ft_putstr_fd(msg, 1);
-	write(1, "\n", 1);
+	while (1)
+	{
+		cur = get_cur_time();
+		if (cur - begin >= limit)
+			break ;
+		usleep(10);
+	}
 }
