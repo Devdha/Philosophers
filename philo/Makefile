@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/09 17:56:16 by hyujo             #+#    #+#              #
-#    Updated: 2022/04/12 11:38:32 by dha              ###   ########seoul.kr   #
+#    Created: 2022/02/09 17:56:16 by dha               #+#    #+#              #
+#    Updated: 2022/04/13 15:46:11 by dha              ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,10 @@ NAME = philo
 SRCS = main.c \
 		error.c \
 		util.c \
-		input.c \
+		util2.c \
 		init.c \
-		dining.c
+		dining.c \
+		scanner.c
 INCS = philo.h
 OBJ_DIR = ./obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -49,6 +50,4 @@ fclean : clean
 
 re: fclean all
 
-rr : wclean all
-
-.PHONY : all clean fclean re rr
+.PHONY : all clean fclean re

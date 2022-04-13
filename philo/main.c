@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:11:51 by dha               #+#    #+#             */
-/*   Updated: 2022/04/12 11:56:46 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 16:38:45 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	start(t_root *root)
 	while (i < root->num_of_philo)
 	{
 		root->philos[i].last = root->start;
-		pthread_create(&root->philos[i].thread, NULL,
-			dining, &root->philos[i]);
+		pthread_create(&root->philos[i].thread, NULL, dining, &root->philos[i]);
+		pthread_create(&thread, NULL, scanner, &root->philos[i]);
+		pthread_detach(thread);
+		i++;
 	}
 }
 
@@ -35,10 +37,9 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_table(&root))
 		return (1);
-	// 초기화
 	start(&root);
-	// 수행
-	// 뮤텍스 날리고
-	// 남은 거 프리 해주면 끝
+	int	i = 0;
+	while (i < root.num_of_philo)
+		pthread_join(root.philos[i++].thread, NULL);
 	return (0);
 }

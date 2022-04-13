@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:30:04 by dha               #+#    #+#             */
-/*   Updated: 2022/04/11 17:28:27 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 15:47:08 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, s++, 1);
 }
 
-int	ft_malloc(void *ptr, size_t size)
+int	ft_malloc(void **ptr, size_t size)
 {
-	ptr = malloc(size);
-	if (ptr == NULL)
+	*ptr = malloc(size);
+	if (*ptr == NULL)
 		return (err_malloc());
-	memset(ptr, 0, size);
+	memset(*ptr, 0, size);
 	return (0);
 }

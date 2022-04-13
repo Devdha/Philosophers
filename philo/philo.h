@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/12 11:53:07 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 15:46:49 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,15 @@ int		set_args(t_root *root, int argc, char **argv);
 int		init_table(t_root *root);
 // dining
 void	*dining(void *ptr);
+// scanner
+void	*scanner(void *ptr);
 // util
 void	ft_putstr_fd(char *s, int fd);
 int		ft_isnum(const char *s);
 int		ft_atoi(const char *str);
-int		ft_malloc(void *ptr, size_t size);
+int		ft_malloc(void **ptr, size_t size);
 time_t	get_cur_time(void);
+void	print_ms(long ms, int id, char *msg);
 // error
 int		err_argnum(void);
 int		err_invalid_input(void);

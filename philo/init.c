@@ -6,19 +6,51 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:24:02 by dha               #+#    #+#             */
-/*   Updated: 2022/04/11 17:39:33 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/13 13:51:26 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static int	is_valid_args(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	if (argc < 5 || argc > 6)
+		return (err_argnum());
+	while (argv[i])
+	{
+		if (!ft_isnum(argv[i]) || ft_atoi(argv[i]) < 1)
+			return (err_invalid_input());
+		i++;
+	}
+	return (1);
+}
+
+int	set_args(t_root *root, int argc, char **argv)
+{
+	if (is_valid_args(argc, argv) == 0)
+		return (1);
+	memset(root, 0, sizeof(t_root));
+	root->num_of_philo = ft_atoi(argv[1]);
+	root->time_to_die = (time_t) ft_atoi(argv[2]);
+	root->time_to_eat = (time_t) ft_atoi(argv[3]);
+	root->time_to_sleep = (time_t) ft_atoi(argv[4]);
+	if (argc == 6)
+		root->limit_to_eat = ft_atoi(argv[5]);
+	return (0);
+}
+
 int	init_table(t_root *root)
 {
 	int	i;
 
-	if (ft_malloc(root->philos, root->num_of_philo * sizeof(t_philo)))
+	if (ft_malloc((void **) &root->philos,
+			root->num_of_philo * sizeof(t_philo)))
 		return (1);
-	if (ft_malloc(root->forks, root->num_of_philo * sizeof(pthread_mutex_t)))
+	if (ft_malloc((void **) &root->forks,
+			root->num_of_philo * sizeof(pthread_mutex_t)))
 		return (1);
 	i = 0;
 	while (i < root->num_of_philo)
@@ -27,7 +59,7 @@ int	init_table(t_root *root)
 		pthread_mutex_init(&root->forks[i], NULL);
 		pthread_mutex_init(&root->philos[i].mutex, NULL);
 		root->philos[i].lfork = &root->forks[i];
-		root->philos[i].rfork = &root->forks[i + 1 % root->num_of_philo];
+		root->philos[i].rfork = &root->forks[(i + 1) % root->num_of_philo];
 		root->philos[i].root = root;
 		i++;
 	}
