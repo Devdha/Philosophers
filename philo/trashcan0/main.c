@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/17 14:32:27 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 15:32:29 by dha              ###   ########seoul.kr  */
+/*   Created: 2022/04/05 21:11:51 by dha               #+#    #+#             */
+/*   Updated: 2022/04/13 19:53:00 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	start(t_root *root)
 	while (i < root->num_of_philo)
 	{
 		root->philos[i].last = root->start;
-		pthread_create(&(root->philos[i].thread), NULL, dining, &(root->philos[i]));
-		pthread_create(&thread, NULL, scanner, &(root->philos[i]));
+		pthread_create(&root->philos[i].thread, NULL, dining, &root->philos[i]);
+		pthread_create(&thread, NULL, scanner, &root->philos[i]);
 		pthread_detach(thread);
 		i++;
 	}
@@ -41,5 +41,5 @@ int	main(int argc, char **argv)
 	int	i = 0;
 	while (i < root.num_of_philo)
 		pthread_join(root.philos[i++].thread, NULL);
-	// end(&root);
+	return (0);
 }

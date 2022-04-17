@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:24:02 by dha               #+#    #+#             */
-/*   Updated: 2022/04/13 13:51:26 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/17 15:37:40 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	init_table(t_root *root)
 {
 	int	i;
 
-	if (ft_malloc((void **) &root->philos,
+	if (ft_malloc((void **) &(root->philos),
 			root->num_of_philo * sizeof(t_philo)))
 		return (1);
-	if (ft_malloc((void **) &root->forks,
+	if (ft_malloc((void **) &(root->forks),
 			root->num_of_philo * sizeof(pthread_mutex_t)))
 		return (1);
 	i = 0;
@@ -63,5 +63,6 @@ int	init_table(t_root *root)
 		root->philos[i].root = root;
 		i++;
 	}
+	pthread_mutex_init(&(root->mutex), NULL);
 	return (0);
 }

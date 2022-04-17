@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/13 22:00:56 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/17 18:32:12 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 typedef struct s_philo
 {
 	int				id;
+	int				state;
 	int				total_eat;
 	time_t			last;
 	pthread_t		thread;
@@ -55,6 +56,7 @@ int		init_table(t_root *root);
 void	*dining(void *ptr);
 // scanner
 void	*scanner(void *ptr);
+int		is_dead(t_philo *philo);
 // util
 void	ft_putstr_fd(char *s, int fd);
 int		ft_isnum(const char *s);
