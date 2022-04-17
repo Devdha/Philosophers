@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:04:39 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 18:43:31 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/17 19:41:13 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ void	*scanner(void *ptr)
 	while (!is_dead(philo))
 	{
 		cur = get_cur_time();
-		pthread_mutex_lock(&(philo->root->mutex));
-		if (cur - philo->last >= philo->root->time_to_die && !is_dead(philo))
+		pthread_mutex_lock(&(philo->mutex));
+		if (cur - philo->last >= philo->root->time_to_die)
 		{
-			philo->root->dead = 1;
-			printf("%ld %d died\n", cur - philo->root->start,
-				philo->id);
+			if (!is_dead(philo))
+			{
+				philo->root->dead = 1;
+				printf("%ld %d died\n", cur - philo->root->start,
+					philo->id);
+			}
 		}
-		pthread_mutex_unlock(&(philo->root->mutex));
+		pthread_mutex_unlock(&(philo->mutex));
 	}
 	return (NULL);
 }

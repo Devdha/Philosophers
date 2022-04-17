@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:56:46 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 18:28:49 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/17 18:55:59 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static int	philo_eat(t_philo *philo)
 		pthread_mutex_lock(&(philo->mutex));
 		philo->total_eat++;
 		philo->last = get_cur_time();
-		pthread_mutex_unlock(&(philo->mutex));
 		printf("%ld %d is eating\n", philo->last - philo->root->start,
 			philo->id);
+		pthread_mutex_unlock(&(philo->mutex));
 	}
 	wait_action(philo->last, philo->root->time_to_eat);
-	// printf("eat: %d %ld\n", philo->id, get_cur_time() - philo->last);
+	printf("eat: %d %ld\n", philo->id, get_cur_time() - philo->last);
 	pthread_mutex_unlock(philo->lfork);
 	pthread_mutex_unlock(philo->rfork);
 	return (is_dead(philo));
@@ -56,7 +56,7 @@ static int	philo_sleep(t_philo *philo)
 			philo->id);
 	}
 	wait_action(cur, philo->root->time_to_sleep);
-	usleep(5);
+	usleep(10);
 	return (is_dead(philo));
 }
 
