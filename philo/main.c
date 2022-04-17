@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:32:27 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 19:56:31 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/17 21:29:40 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ void	start(t_root *root)
 	{
 		root->philos[i].last = root->start;
 		pthread_create(&(root->philos[i].thread), NULL, dining, &(root->philos[i]));
-		// pthread_create(&thread, NULL, scanner, &(root->philos[i]));
-		// pthread_detach(thread);
 		i++;
 	}
-	printf("--------------%ld--------------\n", get_cur_time() - root->start);
+	// pthread_create(&thread, NULL, scanner, &root);
+	// pthread_detach(thread);
 }
 
 int	main(int argc, char **argv)

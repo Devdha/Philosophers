@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:41:25 by dha               #+#    #+#             */
-/*   Updated: 2022/04/13 21:34:10 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/17 22:08:02 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ void	wait_action(time_t begin, time_t limit)
 		cur = get_cur_time();
 		if (cur - begin >= limit)
 			break ;
-		usleep(10);
+		usleep(100);
 	}
+}
+
+void	print_in_thread(t_philo *philo, char *msg, time_t cur)
+{
+	// pthread_mutex_lock(&(philo->root->output_mutex));
+	printf("%ldms %d %s\n", cur - philo->root->start, philo->id, msg);
+	// pthread_mutex_unlock(&(philo->root->output_mutex));
 }

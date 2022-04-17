@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 18:32:12 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/17 22:06:01 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_root
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t output_mutex;
 }				t_root;
 
 int		set_args(t_root *root, int argc, char **argv);
@@ -56,7 +57,7 @@ int		init_table(t_root *root);
 void	*dining(void *ptr);
 // scanner
 void	*scanner(void *ptr);
-int		is_dead(t_philo *philo);
+int		is_dead(t_root *root);
 // util
 void	ft_putstr_fd(char *s, int fd);
 int		ft_isnum(const char *s);
@@ -65,6 +66,7 @@ int		ft_malloc(void **ptr, size_t size);
 time_t	get_cur_time(void);
 void	print_ms(long ms, int id, char *msg);
 void	wait_action(time_t begin, time_t limit);
+void	print_in_thread(t_philo *philo, char *msg, time_t cur);
 // error
 int		err_argnum(void);
 int		err_invalid_input(void);
