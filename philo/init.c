@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:24:02 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 15:37:40 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/18 09:15:44 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ int	init_table(t_root *root)
 		root->philos[i].lfork = &root->forks[i];
 		root->philos[i].rfork = &root->forks[(i + 1) % root->num_of_philo];
 		root->philos[i].root = root;
+		usleep(5);
 		i++;
 	}
 	pthread_mutex_init(&(root->mutex), NULL);
+	pthread_mutex_init(&(root->output_mutex), NULL);
 	return (0);
 }

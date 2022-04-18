@@ -6,32 +6,37 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 19:06:56 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 22:08:48 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/18 11:13:01 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	philo_eat(t_philo *philo)
+static int	philo_eat(t_philo *philo)
 {
+	time_t	cur;
+	
 	pthread_mutex_lock(philo->lfork);
-	print_in_thread(philo, "has taken a fork", get_cur_time());
-	pthread_mutex_lock(philo->rfork);
-	print_in_thread(philo, "has taken a fork", get_cur_time());
-	pthread_mutex_lock(&(philo->mutex));
 	if (!is_dead(philo->root))
-		print_in_thread(philo, "is eating", philo->last);
+		print_in_thread(philo, "has taken a fork", get_cur_time());
+	pthread_mutex_lock(philo->rfork);
+	if (!is_dead(philo->root))
+		print_in_thread(philo, "has taken a fork", get_cur_time());
+	pthread_mutex_lock(&(philo->mutex));
 	philo->total_eat++;
 	philo->last = get_cur_time();
-	wait_action(philo->last, philo->root->time_to_eat);
+	if (!is_dead(philo->root))
+		print_in_thread(philo, "is eating", philo->last);
+	cur = philo->last;
 	pthread_mutex_unlock(&(philo->mutex));
+	wait_action(cur, philo->root->time_to_eat);
 	// printf("eat: %d %ld\n", philo->id, get_cur_time() - philo->last);
 	pthread_mutex_unlock(philo->lfork);
 	pthread_mutex_unlock(philo->rfork);
 	return (is_dead(philo->root));
 }
 
-int	philo_sleep(t_philo *philo)
+static int	philo_sleep(t_philo *philo)
 {
 	time_t	cur;
 
@@ -43,13 +48,13 @@ int	philo_sleep(t_philo *philo)
 	return (is_dead(philo->root));
 }
 
-void	philo_think(t_philo *philo)
+static void	philo_think(t_philo *philo)
 {
 	time_t	cur;
 
 	cur = get_cur_time();
 	if (!is_dead(philo->root))
-		print_in_thread(philo, "is thinking", philo->last);
+		print_in_thread(philo, "is thinking",  cur);
 }
 
 void	*dining(void *ptr)

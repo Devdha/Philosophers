@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 22:06:01 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/18 10:53:17 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <errno.h>
 
 # define SUCCESS 0
 # define ERROR 1

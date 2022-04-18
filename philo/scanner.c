@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:04:39 by dha               #+#    #+#             */
-/*   Updated: 2022/04/17 21:46:13 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/18 10:17:15 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,24 @@ void	*scanner(void *ptr)
 
 	i = 0;
 	root = ptr;
-	while (!is_dead(root))
+	while (is_dead(root) == 0)
 	{
+		// printf("idx: %d\n", i);
 		cur = get_cur_time();
 		pthread_mutex_lock(&(root->philos[i].mutex));
 		if (cur - root->philos[i].last >= root->time_to_die)
 		{
-			pthread_mutex_unlock(&(root->philos[i].mutex));
+			cur = get_cur_time();
 			pthread_mutex_lock(&(root->mutex));
 			if (root->dead == 0)
 			{
 				root->dead = 1;
-				printf("%ld %d died\n", cur - root->start, root->philos[i].id);
+				print_in_thread(&(root->philos[i]), "died", cur);
+				// printf("%ld %d died\n", cur - root->start, root->philos[i].id);
 			}
 			pthread_mutex_unlock(&(root->mutex));
 		}
-		else
-			pthread_mutex_unlock(&(root->philos[i].mutex));
+		pthread_mutex_unlock(&(root->philos[i].mutex));
 		if (++i == root->num_of_philo)
 			i = 0;
 	}
