@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util2.c                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 15:41:25 by dha               #+#    #+#             */
-/*   Updated: 2022/04/18 15:19:32 by dha              ###   ########seoul.kr  */
+/*   Created: 2022/04/05 21:49:22 by dha               #+#    #+#             */
+/*   Updated: 2022/04/11 17:28:37 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	wait_action(time_t begin, time_t limit)
+int	err_invalid_input(void)
 {
-	time_t	cur;
-
-	while (1)
-	{
-		cur = get_cur_time();
-		if (cur - begin >= limit)
-			break ;
-		usleep(100);
-	}
+	ft_putstr_fd("Error: Invalid input\n", 2);
+	return (0);
 }
 
-void	print_in_thread(t_philo *philo, char *msg, time_t cur)
+int	err_argnum(void)
 {
-	pthread_mutex_lock(&(philo->root->output_mutex));
-	printf("%8ldms %4d %s\n", cur - philo->root->start, philo->id, msg);
-	pthread_mutex_unlock(&(philo->root->output_mutex));
+	ft_putstr_fd("Error: Philo needs 4 or 5 arguments\n", 2);
+	return (0);
+}
+
+int	err_malloc(void)
+{
+	ft_putstr_fd("Error: Memory allocation failed\n", 2);
+	return (1);
 }

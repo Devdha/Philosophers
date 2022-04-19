@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/18 11:53:02 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/18 17:47:27 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/time.h>
-# include <pthread.h>
+# include <semaphore.h>
 # include <errno.h>
 
 # define SUCCESS 0
@@ -27,29 +27,23 @@
 typedef struct s_philo
 {
 	int				id;
-	int				state;
 	int				total_eat;
 	time_t			last;
-	pthread_t		thread;
-	pthread_mutex_t	mutex;
-	pthread_mutex_t	*lfork;
-	pthread_mutex_t	*rfork;
+	pid_t			pid;
 	struct s_root	*root;
 }				t_philo;
 
 typedef struct s_root
 {
-	time_t			start;
-	int				num_of_philo;
-	time_t			time_to_die;
-	time_t			time_to_eat;
-	time_t			time_to_sleep;
-	int				limit_to_eat;
-	int				dead;
-	t_philo			*philos;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	mutex;
-	pthread_mutex_t output_mutex;
+	time_t	start;
+	int		num_of_philo;
+	time_t	time_to_die;
+	time_t	time_to_eat;
+	time_t	time_to_sleep;
+	int		limit_to_eat;
+	int		dead;
+	t_philo	*philos;
+	sem_t	*forks;
 }				t_root;
 
 int		set_args(t_root *root, int argc, char **argv);
