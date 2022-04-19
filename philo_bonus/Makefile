@@ -6,7 +6,7 @@
 #    By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 17:56:16 by dha               #+#    #+#              #
-#    Updated: 2022/04/13 15:46:11 by dha              ###   ########seoul.kr   #
+#    Updated: 2022/04/19 19:25:33 by dha              ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,15 @@ AR = ar rcs
 RM = rm -rf
 NAME = philo
 
-SRCS = main.c \
-		error.c \
-		util.c \
-		util2.c \
-		init.c \
-		dining.c \
-		scanner.c
-INCS = philo.h
+SRCS = main_bonus.c \
+		error_bonus.c \
+		util0_bonus.c \
+		util1_bonus.c \
+		util2_bonus.c \
+		init_bonus.c \
+		dining_bonus.c \
+		scanner_bonus.c
+INCS = philo_bonus.h
 OBJ_DIR = ./obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 

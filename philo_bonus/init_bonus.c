@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 19:30:18 by dha               #+#    #+#             */
-/*   Updated: 2022/04/18 21:28:25 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/19 15:57:34 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,36 @@ int	set_args(t_root *root, int argc, char **argv)
 	return (0);
 }
 
+sem_t	*ft_sem_open(const char *name, unsigned int value)
+{
+	sem_t	*sem;
+
+	sem = sem_open(name, O_CREAT | O_EXCL, 0644, value);
+	if (sem != SEM_FAILED)
+		return (sem);
+	sem_unlink(name);
+	return (sem_open(name, O_CREAT, 0644, value));
+}
+
 int	init_table(t_root *root)
 {
 	int	i;
 
-	if (ft_malloc((void **) &(root->philos), root->num_of_philo * sizeof(t_philo)))
-		return (1);
-	if (ft_malloc((void **) &(root->forks), root->num_of_philo * sizeof(sem_t)))
+	if (ft_malloc((void **) &(root->philos),
+			root->num_of_philo * sizeof(t_philo)))
 		return (1);
 	i = 0;
 	while (i < root->num_of_philo)
 	{
 		root->philos[i].id = i + 1;
 		root->philos[i].root = root;
+		root->philos[i].sem_philo = ft_sem_open(
+				ft_strjoin("/philo/", ft_itoa(root->philos[i].id)), 1);
+		i++;
 	}
+	root->sem_fork = ft_sem_open("/fork", root->num_of_philo);
+	root->sem_root = ft_sem_open("/root", 1);
+	root->sem_output = ft_sem_open("/output", 1);
+	root->sem_end = ft_sem_open("/end", 0);
+	return (0);
 }
