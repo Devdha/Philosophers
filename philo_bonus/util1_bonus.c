@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util2_bonus.c                                      :+:      :+:    :+:   */
+/*   util1_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:41:25 by dha               #+#    #+#             */
-/*   Updated: 2022/04/19 19:24:03 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/20 13:46:53 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,23 @@ void	wait_action(time_t begin, time_t limit)
 	}
 }
 
-void	print_each(t_philo *philo, char *msg, time_t cur)
+void	print_each(t_philo *philo, int idx, time_t cur)
 {
+	static const char	*msg[5] = {
+		"died",
+		"has taken a fork",
+		"is eating",
+		"is sleeping",
+		"is thinking",
+	};
+
 	sem_wait(philo->root->sem_output);
-	printf("%8ldms %4d %s\n", cur - philo->root->start, philo->id, msg);
-	sem_post(philo->root->sem_output);
+	printf("%8ldms %4d %s\n", cur - philo->root->start, philo->id, msg[idx]);
+	if (idx != 0)
+		sem_post(philo->root->sem_output);
 }
 
-size_t	ft_strlen(const char *s)
+static size_t	ft_strlen(const char *s)
 {
 	const char	*cp;
 

@@ -6,15 +6,15 @@
 #    By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 17:56:16 by dha               #+#    #+#              #
-#    Updated: 2022/04/19 19:25:33 by dha              ###   ########seoul.kr   #
+#    Updated: 2022/04/20 20:27:36 by dha              ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -rf
-NAME = philo
+NAME = philo_bonus
 
 SRCS = main_bonus.c \
 		error_bonus.c \
@@ -49,6 +49,7 @@ fclean : clean
 	@$(RM) $(NAME)
 	@echo "🗑 Remove $(NAME) Done"
 
-re: fclean all
+re:
+	@make fclean all
 
 .PHONY : all clean fclean re

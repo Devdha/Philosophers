@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 19:30:18 by dha               #+#    #+#             */
-/*   Updated: 2022/04/19 15:57:34 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/20 19:22:25 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	init_table(t_root *root)
 		i++;
 	}
 	root->sem_fork = ft_sem_open("/fork", root->num_of_philo);
-	root->sem_root = ft_sem_open("/root", 1);
+	root->sem_done = ft_sem_open("/done", 0);
 	root->sem_output = ft_sem_open("/output", 1);
 	root->sem_end = ft_sem_open("/end", 0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 19:06:56 by dha               #+#    #+#             */
-/*   Updated: 2022/04/18 15:30:43 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/20 14:04:00 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static int	philo_eat(t_philo *philo)
 		print_in_thread(philo, "is eating", philo->last);
 	cur = philo->last;
 	pthread_mutex_unlock(&(philo->mutex));
-	wait_action(cur, philo->root->time_to_eat);
+	if (!is_dead(philo->root))
+		wait_action(cur, philo->root->time_to_eat);
 	pthread_mutex_unlock(philo->lfork);
 	pthread_mutex_unlock(philo->rfork);
 	return (is_dead(philo->root));
@@ -46,8 +47,10 @@ static int	philo_sleep(t_philo *philo)
 
 	cur = get_cur_time();
 	if (!is_dead(philo->root))
+	{
 		print_in_thread(philo, "is sleeping", cur);
-	wait_action(cur, philo->root->time_to_sleep);
+		wait_action(cur, philo->root->time_to_sleep);
+	}
 	usleep(50);
 	return (is_dead(philo->root));
 }
@@ -77,20 +80,17 @@ void	*dining(void *ptr)
 {
 	t_philo	*philo;
 
+	usleep(1000);
 	philo = ptr;
 	if (philo->id % 2 == 0)
 		usleep(100);
 	while (!is_dead(philo->root))
 	{
-		if (philo->root->limit_to_eat != 0 && is_done(philo))
-			break ;
 		if (philo_eat(philo))
 			break ;
 		if (philo->root->limit_to_eat != 0 && is_done(philo))
 			break ;
 		if (philo_sleep(philo))
-			break ;
-		if (philo->root->limit_to_eat != 0 && is_done(philo))
 			break ;
 		philo_think(philo);
 	}
