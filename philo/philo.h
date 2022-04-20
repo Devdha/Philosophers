@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/18 11:53:02 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/20 20:39:55 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_root
 	time_t			time_to_sleep;
 	int				limit_to_eat;
 	int				dead;
+	int				cnt;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mutex;

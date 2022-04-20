@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 19:06:56 by dha               #+#    #+#             */
-/*   Updated: 2022/04/18 15:30:43 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/20 20:51:59 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,16 @@ void	*dining(void *ptr)
 		usleep(100);
 	while (!is_dead(philo->root))
 	{
-		if (philo->root->limit_to_eat != 0 && is_done(philo))
-			break ;
 		if (philo_eat(philo))
 			break ;
 		if (philo->root->limit_to_eat != 0 && is_done(philo))
-			break ;
+		{
+			pthread_mutex_lock(&(philo->root->mutex));
+			philo->root->cnt++;
+			pthread_mutex_unlock(&(philo->root->mutex));
+			usleep(100);
+		}
 		if (philo_sleep(philo))
-			break ;
-		if (philo->root->limit_to_eat != 0 && is_done(philo))
 			break ;
 		philo_think(philo);
 	}
