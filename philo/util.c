@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:30:04 by dha               #+#    #+#             */
-/*   Updated: 2022/04/13 15:47:08 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 16:21:17 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ int	ft_atoi(const char *str)
 	unsigned long	tot;
 	int				sign;
 
-	sign = 1;
 	tot = 0;
-	sign = 1 - (*str == '-' << 1);
+	sign = 1 - ((*str == '-') << 1);
 	str += (*str == '-' || *str == '+');
 	while (*str >= '0' && *str <= '9')
 	{

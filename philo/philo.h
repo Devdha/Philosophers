@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/21 09:18:42 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 17:27:00 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include <errno.h>
 
 # define SUCCESS 0
 # define ERROR 1
@@ -55,6 +54,7 @@ typedef struct s_root
 
 int		set_args(t_root *root, int argc, char **argv);
 int		init_table(t_root *root);
+int		end(t_root *root, int is_err);
 // dining
 void	*dining(void *ptr);
 int		is_done(t_philo *philo);

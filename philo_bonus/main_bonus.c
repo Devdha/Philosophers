@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 19:27:17 by dha               #+#    #+#             */
-/*   Updated: 2022/04/20 20:01:33 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 16:13:01 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,18 @@ void	start(t_root *root)
 
 void	end(t_root *root)
 {
+	int	i;
+
+	i = 0;
 	kill_until(root->num_of_philo, root);
+	free(root->philos);
+	while (i < root->num_of_philo)
+		sem_close(root->philos[i++].sem_philo);
+	sem_close(root->sem_fork);
+	sem_close(root->sem_done);
+	sem_close(root->sem_output);
+	sem_close(root->sem_end);
+	exit(0);
 }
 
 int	main(int argc, char **argv)
@@ -47,9 +58,9 @@ int	main(int argc, char **argv)
 	pthread_t	thread;
 
 	if (set_args(&root, argc, argv))
-		return (1);
+		exit(1);
 	if (init_table(&root))
-		return (1);
+		exit(1);
 	start(&root);
 	if (argc == 6)
 	{

@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:24:02 by dha               #+#    #+#             */
-/*   Updated: 2022/04/21 10:35:08 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 20:23:46 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ int	set_args(t_root *root, int argc, char **argv)
 	return (0);
 }
 
-static void	init_philo(t_root *root, int i)
+static int	init_philo(t_root *root, int i)
 {
 	root->philos[i].id = i + 1;
-	pthread_mutex_init(&root->forks[i], NULL);
-	pthread_mutex_init(&root->philos[i].mutex, NULL);
+	if (pthread_mutex_init(&root->forks[i], NULL) != 0 || \
+		pthread_mutex_init(&root->philos[i].mutex, NULL) != 0)
+		return (1);
 	root->philos[i].lfork = &root->forks[i];
 	root->philos[i].rfork = &root->forks[(i + 1) % root->num_of_philo];
 	root->philos[i].root = root;
+	return (0);
 }
 
 int	init_table(t_root *root)
@@ -67,8 +69,12 @@ int	init_table(t_root *root)
 	}
 	i = 0;
 	while (i < root->num_of_philo)
-		init_philo(root, i++);
-	pthread_mutex_init(&(root->mutex), NULL);
-	pthread_mutex_init(&(root->output_mutex), NULL);
+	{
+		if (init_philo(root, i++) != 0)
+			return (end(root, 1));
+	}
+	if (pthread_mutex_init(&(root->mutex), NULL) != 0 || \
+		pthread_mutex_init(&(root->output_mutex), NULL) != 0)
+		return (end(root, 1));
 	return (0);
 }
