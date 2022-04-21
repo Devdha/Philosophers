@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 16:24:02 by dha               #+#    #+#             */
-/*   Updated: 2022/04/19 19:26:50 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 10:35:08 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int	init_table(t_root *root)
 		return (1);
 	if (ft_malloc((void **) &(root->forks),
 			root->num_of_philo * sizeof(pthread_mutex_t)))
+	{
+		free(root->philos);
 		return (1);
+	}
 	i = 0;
 	while (i < root->num_of_philo)
 		init_philo(root, i++);
