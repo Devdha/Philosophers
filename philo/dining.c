@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 19:06:56 by dha               #+#    #+#             */
-/*   Updated: 2022/04/20 20:51:59 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 09:17:57 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	*dining(void *ptr)
 			pthread_mutex_lock(&(philo->root->mutex));
 			philo->root->cnt++;
 			pthread_mutex_unlock(&(philo->root->mutex));
-			usleep(100);
 		}
 		if (philo_sleep(philo))
 			break ;

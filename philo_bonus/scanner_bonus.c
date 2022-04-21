@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 19:54:41 by dha               #+#    #+#             */
-/*   Updated: 2022/04/20 20:26:58 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 09:18:26 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*done_scanner(void *ptr)
 {
 	int		i;
 	t_root	*root;
-	
+
 	root = ptr;
 	i = 0;
 	while (i++ < root->num_of_philo)

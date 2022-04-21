@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:12:01 by dha               #+#    #+#             */
-/*   Updated: 2022/04/20 20:39:55 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 09:18:42 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_root
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	mutex;
-	pthread_mutex_t output_mutex;
+	pthread_mutex_t	output_mutex;
 }				t_root;
 
 int		set_args(t_root *root, int argc, char **argv);
