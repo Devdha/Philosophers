@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:44:53 by dha               #+#    #+#             */
-/*   Updated: 2022/04/20 20:02:50 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 22:42:13 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_root
 	sem_t	*sem_done;
 	sem_t	*sem_end;
 }				t_root;
+
+void	end(t_root *root, int is_err);
 
 // init
 int		set_args(t_root *root, int argc, char **argv);

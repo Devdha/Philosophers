@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 19:27:17 by dha               #+#    #+#             */
-/*   Updated: 2022/04/21 16:13:01 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 22:29:54 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	start(t_root *root)
 		}
 		else if (root->philos[i].pid < 0)
 		{
-			kill_until(i, root);
-			exit(1);
+			root->num_of_philo = i;
+			end(root, 1);
 		}
 		++i;
 	}
 }
 
-void	end(t_root *root)
+void	end(t_root *root, int is_err)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ void	end(t_root *root)
 	sem_close(root->sem_done);
 	sem_close(root->sem_output);
 	sem_close(root->sem_end);
-	exit(0);
+	exit(is_err);
 }
 
 int	main(int argc, char **argv)
@@ -64,9 +64,10 @@ int	main(int argc, char **argv)
 	start(&root);
 	if (argc == 6)
 	{
-		pthread_create(&thread, NULL, done_scanner, &root);
+		if (pthread_create(&thread, NULL, done_scanner, &root) != 0)
+			end(&root, 1);
 		pthread_detach(thread);
 	}
 	sem_wait(root.sem_end);
-	end(&root);
+	end(&root, 0);
 }

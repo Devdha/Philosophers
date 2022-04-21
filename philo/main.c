@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:32:27 by dha               #+#    #+#             */
-/*   Updated: 2022/04/21 20:21:28 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 22:40:43 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	start(t_root *root)
 	{
 		root->philos[i].last = root->start;
 		if (pthread_create(&(root->philos[i].thread), NULL,
-			dining, &(root->philos[i])) != 0)
+				dining, &(root->philos[i])) != 0)
 			return (1);
 		i++;
 	}

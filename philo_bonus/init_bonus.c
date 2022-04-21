@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 19:30:18 by dha               #+#    #+#             */
-/*   Updated: 2022/04/20 19:22:25 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/21 22:40:18 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,16 @@ sem_t	*ft_sem_open(const char *name, unsigned int value)
 	if (sem != SEM_FAILED)
 		return (sem);
 	sem_unlink(name);
-	return (sem_open(name, O_CREAT, 0644, value));
+	sem = sem_open(name, O_CREAT, 0644, value);
+	if (sem == SEM_FAILED)
+		exit(1);
+	return (sem);
 }
 
 int	init_table(t_root *root)
 {
-	int	i;
+	int		i;
+	char	*sem_name;
 
 	if (ft_malloc((void **) &(root->philos),
 			root->num_of_philo * sizeof(t_philo)))
@@ -65,8 +69,11 @@ int	init_table(t_root *root)
 	{
 		root->philos[i].id = i + 1;
 		root->philos[i].root = root;
-		root->philos[i].sem_philo = ft_sem_open(
-				ft_strjoin("/philo/", ft_itoa(root->philos[i].id)), 1);
+		sem_name = ft_strjoin("/philo/", ft_itoa(root->philos[i].id));
+		if (sem_name == NULL)
+			exit(1);
+		root->philos[i].sem_philo = ft_sem_open(sem_name, 1);
+		free(sem_name);
 		i++;
 	}
 	root->sem_fork = ft_sem_open("/fork", root->num_of_philo);
