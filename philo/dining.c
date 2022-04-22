@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 19:06:56 by dha               #+#    #+#             */
-/*   Updated: 2022/04/21 09:17:57 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/22 09:27:20 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	*dining(void *ptr)
 
 	philo = ptr;
 	if (philo->id % 2 == 0)
-		usleep(100);
+		usleep(1000);
 	while (!is_dead(philo->root))
 	{
 		if (philo_eat(philo))
