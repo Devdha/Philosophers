@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 19:06:56 by dha               #+#    #+#             */
-/*   Updated: 2022/04/22 09:27:20 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/22 10:46:03 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	philo_sleep(t_philo *philo)
 	if (!is_dead(philo->root))
 		print_in_thread(philo, "is sleeping", cur);
 	wait_action(cur, philo->root->time_to_sleep);
-	usleep(50);
+	usleep(100);
 	return (is_dead(philo->root));
 }
 
@@ -79,7 +79,7 @@ void	*dining(void *ptr)
 
 	philo = ptr;
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		wait_action(philo->root->start, philo->root->time_to_eat);
 	while (!is_dead(philo->root))
 	{
 		if (philo_eat(philo))
