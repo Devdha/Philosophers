@@ -6,7 +6,7 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 21:30:04 by dha               #+#    #+#             */
-/*   Updated: 2022/04/21 16:21:17 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/07/16 17:45:11 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	ft_atoi(const char *str)
 		if (tot > (unsigned long) LONG_MAX / 10 + (sign < 0))
 			return ((sign < 0) - 1);
 		tot = tot * 10;
-		if (tot > (unsigned long) LONG_MAX - (*str - '0') + (sign < 0))
+		if (tot > (unsigned long) LONG_MAX - (*str - '0') + (sign < 0)
+			&& *str != '0')
 			return ((sign < 0) - 1);
 		tot += (*str - '0');
 		str++;
